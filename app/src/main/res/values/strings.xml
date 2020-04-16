@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Answerer</string>
+    <string name="email">Email</string>
+    <string name="pass">Пароль</string>
+    <string name="login">Авторизоваться</string>
+    <string name="forgot_pass">Забыли пароль?</string>
+    <string name="no_acc_create">Нет аккаунта? Создайте его</string>
+
+
+</resources>
