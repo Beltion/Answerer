@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth
 class RegistrationModel {
     private lateinit var fAuth: FirebaseAuth
 
-
     interface CompleteCallback {
         fun onComplete(regStatus: Boolean)
     }

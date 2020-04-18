@@ -12,4 +12,6 @@ interface RegistrationView {
     fun showPasswordLenghtError()
 
     fun showToast(regStatus: String)
+    fun showProgressBar()
+    fun hideProgressBar()
 }

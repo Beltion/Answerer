@@ -22,9 +22,10 @@ class RegistrationPresenter(_view: RegistrationView) {
             view.showPasswordLenghtError()
             return
         }
-
+        view.showProgressBar()
         model.createUser(user.email,user.password,object : RegistrationModel.CompleteCallback {
             override fun onComplete(regStatus: Boolean) {
+                view.hideProgressBar()
                 view.showToast(regStatus.toString())
             }
 
