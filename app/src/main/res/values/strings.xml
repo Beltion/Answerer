@@ -4,7 +4,11 @@
     <string name="pass">Пароль</string>
     <string name="login">Авторизоваться</string>
     <string name="forgot_pass">Забыли пароль?</string>
-    <string name="no_acc_create">Нет аккаунта? Создайте его</string>
+    <string name="no_acc_create">Нет аккаунта? Создайте здесь</string>
+    <string name="acc_create">Создание аккаута</string>
+    <string name="have_acc">Уже зарегистрированы? Авторизуйтесь здесь</string>
+    <string name="reg">Зарегистрироваться</string>
+    <string name="name">Имя</string>
 
 
 </resources>

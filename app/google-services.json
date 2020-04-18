@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "761551881016",
+    "firebase_url": "https://answerer-d48c4.firebaseio.com",
+    "project_id": "answerer-d48c4",
+    "storage_bucket": "answerer-d48c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761551881016:android:43418eadfe7ec82427b7cd",
+        "android_client_info": {
+          "package_name": "com.example.answerer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761551881016-88m6gu0rptm3oarm2a7ink10tmukahav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn4kJVDGVCK_4bPX-PXi_9Bb3LPwXV9cY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761551881016-88m6gu0rptm3oarm2a7ink10tmukahav.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
