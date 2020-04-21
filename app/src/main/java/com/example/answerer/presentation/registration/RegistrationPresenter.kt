@@ -1,6 +1,7 @@
 package com.example.answerer.presentation.registration
 
-import android.content.ContentValues
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 
 
 class RegistrationPresenter(_view: RegistrationView) {
@@ -9,11 +10,19 @@ class RegistrationPresenter(_view: RegistrationView) {
     val model = RegistrationModel()
 
     fun onButtonRegClick() {
+
         val user = view.getRegUserData()
+
         if(user.email.isEmpty()) {
             view.showEmailEmptyError()
             return
+        } else {
+            if(!isEmailValid(user.email)){
+                view.showEmailEmptyError()
+                return
+            }
         }
+
         if(user.password.isEmpty()) {
             view.showPasswordEmptyError()
             return
@@ -24,13 +33,24 @@ class RegistrationPresenter(_view: RegistrationView) {
         }
         view.showProgressBar()
         model.createUser(user.email,user.password,object : RegistrationModel.CompleteCallback {
-            override fun onComplete(regStatus: Boolean) {
+            override fun onComplete(task: Task<AuthResult>) {
                 view.hideProgressBar()
-                view.showToast(regStatus.toString())
+                if(task.isSuccessful) {
+                    view.showToast(task.toString())
+                } else {
+
+                    view.showToast(task.exception.toString())
+
+                }
+
             }
 
         })
 
     }
 
+    private fun isEmailValid(email: String): Boolean =
+        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+
 }
+
