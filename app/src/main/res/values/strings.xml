@@ -1,4 +1,8 @@
 <resources>
+    <string name="field_must_be_not_null">Заполните поле</string>
+    <string name="invalid_email">Некорректный email</string>
+    <string name="invalid_pass">Пароль должен содержать больше 5 символов</string>
+
     <string name="app_name">Answerer</string>
     <string name="email">Email</string>
     <string name="pass">Пароль</string>
@@ -10,8 +14,7 @@
     <string name="have_acc">Уже зарегистрированы? Авторизуйтесь здесь</string>
     <string name="reg">Зарегистрироваться</string>
 
-    <string name="field_must_be_not_null">Заполните поле</string>
-    <string name="invalid_email">Некорректный email</string>
-    <string name="invalid_pass">Пароль должен содержать больше 5 символов</string>
+
+    <string name="have_not_acc">Нет аккаунта? Зарегистрируйтесь здесь</string>
 
 </resources>

@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.answerer.R
-import com.example.answerer.data.RegUser
+import com.example.answerer.data.User
 
 class RegistrationActivity : AppCompatActivity(), RegistrationView {
 
@@ -32,25 +32,24 @@ class RegistrationActivity : AppCompatActivity(), RegistrationView {
 
     }
 
-    private fun init() {
+    override fun init() {
 
         nameEt = findViewById(R.id.nameEtReg)
         emailEt = findViewById(R.id.emailEtReg)
         passEt = findViewById(R.id.passEtReg)
         regBtn = findViewById(R.id.regBtnReg)
-        progressBar = findViewById(R.id.progress)
+        progressBar = findViewById(R.id.progressReg)
         container = findViewById(R.id.cvReg)
 
         presenter = RegistrationPresenter(this)
-        presenter.model.initFAuth()
 
         regBtn.setOnClickListener{
             presenter.onButtonRegClick()
         }
     }
 
-    override fun getRegUserData() : RegUser{
-        val user = RegUser()
+    override fun getRegUserData() : User{
+        val user = User()
         user.email = emailEt.text.toString().trim()
         user.password = passEt.text.toString().trim()
         return user

@@ -1,9 +1,11 @@
 package com.example.answerer.presentation.registration
 
-import com.example.answerer.data.RegUser
+import com.example.answerer.data.User
 
 interface RegistrationView {
-    fun getRegUserData(): RegUser
+
+    fun init()
+    fun getRegUserData(): User
 
     fun showEmailError(strId: Int)
     fun showPasswordError(strId: Int)

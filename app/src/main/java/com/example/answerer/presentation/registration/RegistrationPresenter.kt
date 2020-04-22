@@ -1,6 +1,5 @@
 package com.example.answerer.presentation.registration
 
-import android.content.res.Resources
 import android.util.Log
 import com.example.answerer.R
 import com.google.android.gms.tasks.Task
@@ -13,10 +12,9 @@ class RegistrationPresenter(_view: RegistrationView) {
     private val LOG_TAG = "Registration"
 
     private val view: RegistrationView = _view
-    val model = RegistrationModel()
+    private val model = RegistrationModel()
 
     fun onButtonRegClick() {
-
         val user = view.getRegUserData()
 
         if(user.email.isEmpty()) {
@@ -38,8 +36,11 @@ class RegistrationPresenter(_view: RegistrationView) {
             view.showPasswordError(R.string.invalid_pass)
             return
         }
+
         view.showProgressBar()
         view.hideCardViewContainer()
+
+        model.initFAuth()
         model.createUser(user.email,user.password,object : RegistrationModel.CompleteCallback {
             override fun onComplete(task: Task<AuthResult>) {
                 view.hideProgressBar()
@@ -64,7 +65,7 @@ class RegistrationPresenter(_view: RegistrationView) {
     }
 
     private fun isEmailValid(email: String): Boolean =
-        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
 }
 
