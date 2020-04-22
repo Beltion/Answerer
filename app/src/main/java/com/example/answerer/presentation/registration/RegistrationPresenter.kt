@@ -1,10 +1,16 @@
 package com.example.answerer.presentation.registration
 
+import android.content.res.Resources
+import android.util.Log
+import com.example.answerer.R
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
 
 class RegistrationPresenter(_view: RegistrationView) {
+
+    private val LOG_TAG = "Registration"
 
     private val view: RegistrationView = _view
     val model = RegistrationModel()
@@ -14,33 +20,41 @@ class RegistrationPresenter(_view: RegistrationView) {
         val user = view.getRegUserData()
 
         if(user.email.isEmpty()) {
-            view.showEmailEmptyError()
+            view.showEmailError(R.string.field_must_be_not_null)
             return
         } else {
             if(!isEmailValid(user.email)){
-                view.showEmailEmptyError()
+                view.showEmailError(R.string.invalid_email)
                 return
             }
         }
 
         if(user.password.isEmpty()) {
-            view.showPasswordEmptyError()
+
+            view.showPasswordError(R.string.field_must_be_not_null)
             return
         }
         if(user.password.length < 6) {
-            view.showPasswordLenghtError()
+            view.showPasswordError(R.string.invalid_pass)
             return
         }
         view.showProgressBar()
+        view.hideCardViewContainer()
         model.createUser(user.email,user.password,object : RegistrationModel.CompleteCallback {
             override fun onComplete(task: Task<AuthResult>) {
                 view.hideProgressBar()
+                view.showCardViewContainer()
                 if(task.isSuccessful) {
                     view.showToast(task.toString())
                 } else {
-
-                    view.showToast(task.exception.toString())
-
+                    Log.e(LOG_TAG, task.exception.toString())
+                    val errorString: String = when(task.exception){
+                        is FirebaseAuthUserCollisionException ->
+                            "Аккаунт с данным email уже зарегистрирован"
+                        else ->
+                            "Не удалось зарегистрировать аккаунт"
+                    }
+                    view.showToast(errorString)
                 }
 
             }

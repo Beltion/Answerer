@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.example.answerer.R
 import com.example.answerer.data.RegUser
 
@@ -17,8 +18,10 @@ class RegistrationActivity : AppCompatActivity(), RegistrationView {
     private lateinit var emailEt: EditText
     private lateinit var passEt: EditText
     private lateinit var regBtn: Button
-    private lateinit var presenter: RegistrationPresenter
     private lateinit var progressBar: ProgressBar
+    private lateinit var container: CardView
+
+    private lateinit var presenter: RegistrationPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,7 @@ class RegistrationActivity : AppCompatActivity(), RegistrationView {
         passEt = findViewById(R.id.passEtReg)
         regBtn = findViewById(R.id.regBtnReg)
         progressBar = findViewById(R.id.progress)
+        container = findViewById(R.id.cvReg)
 
         presenter = RegistrationPresenter(this)
         presenter.model.initFAuth()
@@ -52,12 +56,16 @@ class RegistrationActivity : AppCompatActivity(), RegistrationView {
         return user
     }
 
-    override fun showEmailEmptyError(){ emailEt.error = "Введите Email"}
-    override fun showPasswordEmptyError(){ passEt.error = "Введите Пароль"}
-    override fun showPasswordLenghtError(){ passEt.error = "Пароль должен содержать не меньше 6 символов"}
+    override fun showEmailError(strId: Int) {
+        emailEt.error = getString(strId)
+    }
+
+    override fun showPasswordError(strId: Int) {
+        passEt.error = getString(strId)
+    }
 
     override fun showToast(regStatus: String) {
-        Toast.makeText(this, "Регистрация:$regStatus", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, regStatus, Toast.LENGTH_SHORT).show()
     }
 
     override fun showProgressBar() {
@@ -66,6 +74,14 @@ class RegistrationActivity : AppCompatActivity(), RegistrationView {
 
     override fun hideProgressBar() {
         progressBar.visibility = View.GONE
+    }
+
+    override fun showCardViewContainer() {
+        container.visibility = View.VISIBLE
+    }
+
+    override fun hideCardViewContainer() {
+        container.visibility = View.GONE
     }
 }
 
