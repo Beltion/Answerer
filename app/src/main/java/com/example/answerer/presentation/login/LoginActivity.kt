@@ -29,6 +29,7 @@ class LoginActivity : AppCompatActivity(), LoginView{
         setContentView(R.layout.login)
         Log.d("LoginLog", "start Activity")
 
+        init()
     }
 
     override fun init() {
