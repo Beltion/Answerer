@@ -3,10 +3,7 @@ package com.example.answerer.presentation.login
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.answerer.R
@@ -19,8 +16,8 @@ class LoginActivity : AppCompatActivity(), LoginView{
     private lateinit var passEt: EditText
     private lateinit var authBtn: Button
     private lateinit var progressBar: ProgressBar
+    private lateinit var noAccTv: TextView
     private lateinit var container: CardView
-
     private lateinit var presenter: LoginPresenter
 
 
@@ -30,6 +27,8 @@ class LoginActivity : AppCompatActivity(), LoginView{
         Log.d("LoginLog", "start Activity")
 
         init()
+
+
     }
 
     override fun init() {
@@ -38,6 +37,7 @@ class LoginActivity : AppCompatActivity(), LoginView{
         passEt = findViewById(R.id.passEtAuth)
         authBtn = findViewById(R.id.authBtnAuth)
         progressBar = findViewById(R.id.progressAuth)
+        noAccTv = findViewById(R.id.authTextReg)
         container = findViewById(R.id.cvAuth)
 
         presenter = LoginPresenter(this)
@@ -46,6 +46,9 @@ class LoginActivity : AppCompatActivity(), LoginView{
             presenter.onAuthBtnClick()
         }
 
+        noAccTv.setOnClickListener {
+            presenter.onTextCreateAccClick(applicationContext)
+        }
     }
 
     override fun getRegUserData() : User {

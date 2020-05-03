@@ -1,7 +1,10 @@
 package com.example.answerer.presentation.login
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.example.answerer.R
+import com.example.answerer.presentation.registration.RegistrationActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -76,4 +79,9 @@ class LoginPresenter(_view: LoginView) {
 
     private fun isEmailValid(email: String): Boolean =
         android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+
+    fun onTextCreateAccClick(context: Context) {
+        val intent = Intent(context, RegistrationActivity::class.java)
+        context.startActivity(intent)
+    }
 }

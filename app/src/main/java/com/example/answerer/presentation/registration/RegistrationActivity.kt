@@ -3,10 +3,7 @@ package com.example.answerer.presentation.registration
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.answerer.R
@@ -18,6 +15,7 @@ class RegistrationActivity : AppCompatActivity(), RegistrationView {
     private lateinit var emailEt: EditText
     private lateinit var passEt: EditText
     private lateinit var regBtn: Button
+    private lateinit var haveAccTv: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var container: CardView
 
@@ -38,6 +36,7 @@ class RegistrationActivity : AppCompatActivity(), RegistrationView {
         emailEt = findViewById(R.id.emailEtReg)
         passEt = findViewById(R.id.passEtReg)
         regBtn = findViewById(R.id.regBtnReg)
+        haveAccTv = findViewById(R.id.authTvReg)
         progressBar = findViewById(R.id.progressReg)
         container = findViewById(R.id.cvReg)
 
@@ -45,6 +44,10 @@ class RegistrationActivity : AppCompatActivity(), RegistrationView {
 
         regBtn.setOnClickListener{
             presenter.onButtonRegClick()
+        }
+
+        haveAccTv.setOnClickListener {
+            presenter.onTextHaveAccClick(applicationContext)
         }
     }
 

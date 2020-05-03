@@ -1,7 +1,10 @@
 package com.example.answerer.presentation.registration
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.example.answerer.R
+import com.example.answerer.presentation.login.LoginActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -67,5 +70,10 @@ class RegistrationPresenter(_view: RegistrationView) {
     private fun isEmailValid(email: String): Boolean =
         android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
+
+    fun onTextHaveAccClick(context: Context) {
+        val intent = Intent(context, LoginActivity::class.java)
+        context.startActivity(intent)
+    }
 }
 
