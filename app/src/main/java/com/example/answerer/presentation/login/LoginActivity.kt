@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity(), LoginView{
         }
     }
 
-    override fun getRegUserData() : User {
+    override fun getLoginUserData() : User {
         val user = User()
         user.email = emailEt.text.toString().trim()
         user.password = passEt.text.toString().trim()

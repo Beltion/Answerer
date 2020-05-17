@@ -27,7 +27,7 @@ class LoginPresenter(_view: LoginView) {
             Log.e(LOG_TAG, "Current User TRUE")
         }
 
-        val user = view.getRegUserData()
+        val user = view.getLoginUserData()
 
         if(user.email.isEmpty()) {
             view.showEmailError(R.string.field_must_be_not_null)

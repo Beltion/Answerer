@@ -5,7 +5,7 @@ import com.example.answerer.data.User
 interface LoginView {
 
     fun init()
-    fun getRegUserData(): User
+    fun getLoginUserData(): User
 
     fun showEmailError(strId: Int)
     fun showPasswordError(strId: Int)

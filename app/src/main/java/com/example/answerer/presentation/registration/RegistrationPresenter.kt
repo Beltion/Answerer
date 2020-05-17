@@ -17,7 +17,7 @@ class RegistrationPresenter(_view: RegistrationView) {
     private val view: RegistrationView = _view
     private val model = RegistrationModel()
 
-    fun onButtonRegClick() {
+    fun onRegBtnClick() {
         val user = view.getRegUserData()
 
         if(user.email.isEmpty()) {
