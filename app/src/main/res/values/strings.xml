@@ -1,4 +1,10 @@
 <resources>
+
+    //Bottom bar icon name
+    <string name="menu">Меню</string>
+    <string name="create_solution">Создать</string>
+    <string name="categories">Категории</string>
+
     <string name="field_must_be_not_null">Заполните поле</string>
     <string name="invalid_email">Некорректный email</string>
     <string name="invalid_pass">Пароль должен содержать больше 5 символов</string>
