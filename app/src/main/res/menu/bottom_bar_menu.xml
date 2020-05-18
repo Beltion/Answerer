@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_menu"
+        android:id="@+id/bottom_nav_menu"
         android:icon="@drawable/ic_menu_black_24dp"
         android:title="@string/menu"/>
     <item
-        android:id="@+id/nav_create"
-        android:icon="@drawable/ic_add_black_24dp"
+        android:id="@+id/bottom_nav_create"
+        android:icon="@drawable/ic_create_black_24dp"
         android:title="@string/create_solution"/>
     <item
-        android:id="@+id/nav_categories"
+        android:id="@+id/bottom_nav_categories"
         android:icon="@drawable/ic_categories_black_24dp"
         android:title="@string/categories"/>
 
