@@ -9,7 +9,10 @@ class LoginModel {
 
     interface CompleteCallback {
         fun onComplete(task: Task<AuthResult>)
+
     }
+
+
 
     fun initFAuth(){
         fAuth = FirebaseAuth.getInstance()
@@ -21,7 +24,7 @@ class LoginModel {
         }
     }
 
-    fun isLogged() : Boolean {
+    fun isUserInApp() : Boolean {
         return fAuth.currentUser != null
     }
 

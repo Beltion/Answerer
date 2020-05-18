@@ -32,7 +32,9 @@ class LoginActivity : AppCompatActivity(), LoginView{
     }
 
     override fun init() {
-        
+        presenter = LoginPresenter(this)
+        presenter.isLogged(applicationContext)
+
         emailEt = findViewById(R.id.emailEtAuth)
         passEt = findViewById(R.id.passEtAuth)
         authBtn = findViewById(R.id.authBtnAuth)
@@ -40,10 +42,9 @@ class LoginActivity : AppCompatActivity(), LoginView{
         noAccTv = findViewById(R.id.authTextReg)
         container = findViewById(R.id.cvAuth)
 
-        presenter = LoginPresenter(this)
 
         authBtn.setOnClickListener{
-            presenter.onAuthBtnClick()
+            presenter.onAuthBtnClick(applicationContext)
         }
 
         noAccTv.setOnClickListener {

@@ -18,7 +18,14 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:elevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/primaryLight"
+        app:itemTextColor="@color/nav_item_state_color"
+        app:itemIconTint="@color/nav_item_state_color"
+        app:menu="@menu/bottom_bar_menu"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

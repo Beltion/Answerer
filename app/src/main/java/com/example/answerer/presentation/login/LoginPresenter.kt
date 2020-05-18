@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.example.answerer.R
+import com.example.answerer.presentation.container.ContainerActivity
 import com.example.answerer.presentation.registration.RegistrationActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -19,13 +20,19 @@ class LoginPresenter(_view: LoginView) {
     private val view: LoginView = _view
     private val model = LoginModel()
 
-    fun onAuthBtnClick() {
-
-        model.initFAuth()
-
-        if(model.isLogged()){
-            Log.e(LOG_TAG, "Current User TRUE")
+    fun isLogged(context: Context) {
+        try {
+            model.initFAuth()
+            if(model.isUserInApp()){
+               toContainerActivity(context)
+            }
+        }catch (e: Exception){
+            Log.e(LOG_TAG, e.toString())
         }
+
+    }
+
+    fun onAuthBtnClick(context: Context) {
 
         val user = view.getLoginUserData()
 
@@ -57,7 +64,7 @@ class LoginPresenter(_view: LoginView) {
                 view.hideProgressBar()
                 view.showCardViewContainer()
                 if(task.isSuccessful) {
-                    view.showToast(task.toString())
+                    toContainerActivity(context)
                 } else {
                     Log.e(LOG_TAG, task.exception.toString())
                     val errorString: String = when(task.exception){
@@ -75,6 +82,11 @@ class LoginPresenter(_view: LoginView) {
 
         })
 
+    }
+
+    private fun toContainerActivity(context: Context){
+        val intent = Intent(context, ContainerActivity::class.java)
+        context.startActivity(intent)
     }
 
     private fun isEmailValid(email: String): Boolean =
