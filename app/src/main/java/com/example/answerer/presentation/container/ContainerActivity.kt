@@ -1,6 +1,7 @@
 package com.example.answerer.presentation.container
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
@@ -9,18 +10,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.example.answerer.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
 
-class ContainerActivity : ContainerView, AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+class ContainerActivity : ContainerView, AppCompatActivity(){
 
     private lateinit var bottomNavView: BottomNavigationView
+    private lateinit var drawerNavView: NavigationView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toolbar: MaterialToolbar
     private lateinit var progressBar: ProgressBar
     private lateinit var container: ConstraintLayout
+
+    private lateinit var presenter: ContainerPresenter
+
+    private val LOG_TAG = "ContainerActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,26 +38,29 @@ class ContainerActivity : ContainerView, AppCompatActivity(), NavigationView.OnN
 
     }
 
-
-
     override fun init() {
         progressBar = findViewById(R.id.progressContainer)
-        container = findViewById(R.id.container)
-
         toolbar = findViewById(R.id.toolbar)
+        container = findViewById(R.id.container)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        bottomNavView = findViewById(R.id.bottom_nav_view)
+        drawerNavView = findViewById(R.id.drawer_nav_view)
+
+        presenter = ContainerPresenter(this)
         toolbar.title = getString(R.string.categories)
 
-        bottomNavView = findViewById(R.id.bottom_nav_view)
-        bottomNavView.setOnNavigationItemReselectedListener {
-            when(it.itemId){
-                R.id.bottom_nav_menu -> showToast("MENU")
-                R.id.nav_create -> showToast("CRE")
-                R.id.nav_categories -> showToast("CAT")
-            }
+        drawerNavView.setNavigationItemSelectedListener {
+            presenter.onNavDrawerItemClick(it)
+            true
         }
 
-        drawerLayout = findViewById(R.id.drawer_layout)
+        bottomNavView.setOnNavigationItemSelectedListener {
+            presenter.onBottomItemClick(it)
+            true
+        }
+        bottomNavView.selectedItemId = R.id.bottom_nav_categories
 
+        presenter.onCreateView()
     }
 
     override fun showToast(str: String) {
@@ -58,10 +69,12 @@ class ContainerActivity : ContainerView, AppCompatActivity(), NavigationView.OnN
 
     override fun showProgressBar() {
         progressBar.visibility = View.VISIBLE
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
     override fun hideProgressBar() {
         progressBar.visibility = View.GONE
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
     }
 
     override fun hideContainer() {
@@ -72,16 +85,21 @@ class ContainerActivity : ContainerView, AppCompatActivity(), NavigationView.OnN
         container.visibility = View.VISIBLE
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-            when(item.itemId){
-                R.id.nav_categories -> showToast("CAT")
-                R.id.nav_create -> showToast("CRE")
-                R.id.nav_error -> showToast("ER")
-                R.id.nav_settings -> showToast("SET")
-                R.id.nav_logout -> showToast("LOGOUT")
-            }
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
+    override fun showNavDrawer(){
+        drawerLayout.openDrawer(GravityCompat.START)
     }
+
+    override fun hideNavDrawer() {
+        drawerLayout.closeDrawer(GravityCompat.START)
+    }
+
+    override fun changeFragment(fragment: Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        fragmentTransaction.add(R.id.fragment_container,fragment)
+        fragmentTransaction.commit()
+    }
+
 
 }

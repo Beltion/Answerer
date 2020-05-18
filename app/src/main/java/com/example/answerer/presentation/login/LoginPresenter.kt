@@ -17,13 +17,13 @@ class LoginPresenter(_view: LoginView) {
 
     private val LOG_TAG = "Login"
 
-    private val view: LoginView = _view
+    private val view = _view
     private val model = LoginModel()
 
-    fun isLogged(context: Context) {
+    fun onViewCreate(context: Context) {
         try {
             model.initFAuth()
-            if(model.isUserInApp()){
+            if(model.isLogged()){
                toContainerActivity(context)
             }
         }catch (e: Exception){

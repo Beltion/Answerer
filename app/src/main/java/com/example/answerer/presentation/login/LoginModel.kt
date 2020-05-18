@@ -24,7 +24,7 @@ class LoginModel {
         }
     }
 
-    fun isUserInApp() : Boolean {
+    fun isLogged() : Boolean {
         return fAuth.currentUser != null
     }
 

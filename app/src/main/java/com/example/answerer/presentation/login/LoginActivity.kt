@@ -18,6 +18,7 @@ class LoginActivity : AppCompatActivity(), LoginView{
     private lateinit var progressBar: ProgressBar
     private lateinit var noAccTv: TextView
     private lateinit var container: CardView
+
     private lateinit var presenter: LoginPresenter
 
 
@@ -33,7 +34,7 @@ class LoginActivity : AppCompatActivity(), LoginView{
 
     override fun init() {
         presenter = LoginPresenter(this)
-        presenter.isLogged(applicationContext)
+        presenter.onViewCreate(applicationContext)
 
         emailEt = findViewById(R.id.emailEtAuth)
         passEt = findViewById(R.id.passEtAuth)
