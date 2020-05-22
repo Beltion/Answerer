@@ -5,6 +5,7 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.answerer.R
 import com.example.answerer.presentation.categories.CategoriesFrActivity
+import com.example.answerer.presentation.creater.CreaterFrActivity
 import java.lang.Exception
 
 class ContainerPresenter(_view: ContainerView) {
@@ -15,6 +16,10 @@ class ContainerPresenter(_view: ContainerView) {
 
     fun onCreateView() {
         val fr = CategoriesFrActivity()
+
+        view.setSelectedBottomNavItem(R.id.bottom_nav_categories)
+        view.setSelectedDrawerNavItem(R.id.nav_categories)
+
         view.changeFragment(fr)
         view.showContainer()
         view.hideProgressBar()
@@ -30,12 +35,16 @@ class ContainerPresenter(_view: ContainerView) {
 
             R.id.bottom_nav_categories -> {
                 Log.d(LOG_TAG, "Categories Bottom")
+                view.setSelectedDrawerNavItem(R.id.nav_categories)
+                view.setSelectedDrawerNavItem(R.id.nav_categories)
                 fragment = CategoriesFrActivity()
             }
 
-            R.id.bottom_nav_create ->
-                Log.e(LOG_TAG, "create")
-
+            R.id.bottom_nav_create ->{
+                Log.d(LOG_TAG, "Create Bottom")
+                view.setSelectedDrawerNavItem(R.id.nav_create)
+                fragment = CreaterFrActivity()
+            }
 
         }
 
@@ -44,14 +53,17 @@ class ContainerPresenter(_view: ContainerView) {
 
     fun onNavDrawerItemClick(item: MenuItem) {
         var fragment: Fragment? = null
-        Log.d(LOG_TAG, item.itemId.toString())
         when(item.itemId){
             R.id.nav_categories ->{
                 Log.d(LOG_TAG, "Categories Drawer")
+                view.setSelectedBottomNavItem(R.id.bottom_nav_categories)
                 fragment = CategoriesFrActivity()
             }
-            R.id.nav_create ->
-                Log.e(LOG_TAG, "create")
+            R.id.nav_create ->{
+                Log.e(LOG_TAG, "Create Drawer")
+                view.setSelectedBottomNavItem(R.id.bottom_nav_create)
+                fragment = CreaterFrActivity()
+            }
             R.id.nav_error ->
                 Log.e(LOG_TAG, "Nav error")
             R.id.nav_settings ->
@@ -69,9 +81,25 @@ class ContainerPresenter(_view: ContainerView) {
         try {
             fragment?.let {
                 view.changeFragment(it)
-            }?: Log.e(LOG_TAG,"Fragment don't changed")
+//                synchronizedNavButton(it)
+            }?: Log.e(LOG_TAG,"New Fragment is NULL and don't changed")
+
         }catch (e:Exception){
             e.printStackTrace()
         }
     }
+
+//    private fun synchronizedNavButton(fragment: Fragment) {
+//        when(fragment){
+//            is CategoriesFrActivity -> {
+//                view.setSelectedBottomNavItem(R.id.bottom_nav_categories)
+//                view.setSelectedDrawerNavItem(R.id.nav_categories)
+//            }
+//            is CreaterFrActivity -> {
+//                view.setSelectedBottomNavItem(R.id.bottom_nav_create)
+//                view.setSelectedDrawerNavItem(R.id.nav_create)
+//            }
+//            else -> view.showToast("Другое Activity")
+//        }
+//    }
 }

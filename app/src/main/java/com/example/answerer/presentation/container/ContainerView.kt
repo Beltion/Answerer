@@ -10,14 +10,21 @@ interface ContainerView {
 
     fun showToast(str: String)
 
+    //Управление анимацией загрузки
     fun showProgressBar()
     fun hideProgressBar()
 
+    //Управляет отображением экрана для
     fun hideContainer()
     fun showContainer()
 
+    //Управляет отображением NavigationDrawer
     fun showNavDrawer()
     fun hideNavDrawer()
 
+    // Меняет фрагмент в контейнере ContainerActivity
     fun changeFragment(fragment: Fragment)
+
+    fun setSelectedDrawerNavItem(id: Int)
+    fun setSelectedBottomNavItem(id: Int)
 }

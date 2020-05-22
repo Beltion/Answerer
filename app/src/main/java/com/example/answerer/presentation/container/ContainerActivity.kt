@@ -49,6 +49,7 @@ class ContainerActivity : ContainerView, AppCompatActivity(){
         presenter = ContainerPresenter(this)
         toolbar.title = getString(R.string.categories)
 
+
         drawerNavView.setNavigationItemSelectedListener {
             presenter.onNavDrawerItemClick(it)
             true
@@ -58,7 +59,7 @@ class ContainerActivity : ContainerView, AppCompatActivity(){
             presenter.onBottomItemClick(it)
             true
         }
-        bottomNavView.selectedItemId = R.id.bottom_nav_categories
+
 
         presenter.onCreateView()
     }
@@ -100,6 +101,15 @@ class ContainerActivity : ContainerView, AppCompatActivity(){
         fragmentTransaction.add(R.id.fragment_container,fragment)
         fragmentTransaction.commit()
     }
+
+    override fun setSelectedDrawerNavItem(id: Int) {
+        drawerNavView.setCheckedItem(id)
+    }
+
+    override fun setSelectedBottomNavItem(id: Int){
+        bottomNavView.selectedItemId = id
+    }
+
 
 
 }
