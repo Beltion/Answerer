@@ -1,8 +1,6 @@
 package com.example.answerer.presentation.container
 
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -39,7 +37,7 @@ class ContainerActivity : ContainerView, AppCompatActivity(){
     }
 
     override fun init() {
-        progressBar = findViewById(R.id.progressContainer)
+        progressBar = findViewById(R.id.progress_container)
         toolbar = findViewById(R.id.toolbar)
         container = findViewById(R.id.container)
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -98,7 +96,7 @@ class ContainerActivity : ContainerView, AppCompatActivity(){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
-        fragmentTransaction.add(R.id.fragment_container,fragment)
+        fragmentTransaction.replace(R.id.fragment_container,fragment)
         fragmentTransaction.commit()
     }
 
