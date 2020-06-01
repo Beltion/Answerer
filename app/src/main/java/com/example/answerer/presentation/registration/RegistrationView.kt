@@ -7,6 +7,7 @@ interface RegistrationView {
     fun init()
     fun getRegUserData(): User
 
+    fun showNameError(strId: Int)
     fun showEmailError(strId: Int)
     fun showPasswordError(strId: Int)
 

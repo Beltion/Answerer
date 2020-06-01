@@ -9,6 +9,7 @@
     <string name="exit">Выйти</string>
 
     <string name="field_must_be_not_null">Заполните поле</string>
+    <string name="invalid_name">Имя должно содержать больше 3 символов</string>
     <string name="invalid_email">Некорректный email</string>
     <string name="invalid_pass">Пароль должен содержать больше 5 символов</string>
 

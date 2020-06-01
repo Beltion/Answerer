@@ -55,7 +55,12 @@ class RegistrationActivity : AppCompatActivity(), RegistrationView {
         val user = User()
         user.email = emailEt.text.toString().trim()
         user.password = passEt.text.toString().trim()
+        user.name = nameEt.text.toString().trim()
         return user
+    }
+
+    override fun showNameError(strId: Int) {
+        nameEt.error = getString(strId)
     }
 
     override fun showEmailError(strId: Int) {

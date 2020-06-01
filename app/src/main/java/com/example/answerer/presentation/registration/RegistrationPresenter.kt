@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.example.answerer.R
+import com.example.answerer.data.User
 import com.example.answerer.presentation.login.LoginActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -20,6 +21,15 @@ class RegistrationPresenter(_view: RegistrationView) {
     fun onRegBtnClick() {
         val user = view.getRegUserData()
 
+        if(user.name.isEmpty()) {
+            view.showNameError(R.string.field_must_be_not_null)
+            return
+        }
+        if(user.name.length < 3) {
+            view.showNameError(R.string.invalid_name)
+            return
+        }
+
         if(user.email.isEmpty()) {
             view.showEmailError(R.string.field_must_be_not_null)
             return
@@ -31,7 +41,6 @@ class RegistrationPresenter(_view: RegistrationView) {
         }
 
         if(user.password.isEmpty()) {
-
             view.showPasswordError(R.string.field_must_be_not_null)
             return
         }
@@ -44,15 +53,16 @@ class RegistrationPresenter(_view: RegistrationView) {
         view.hideCardViewContainer()
 
         model.initFAuth()
-        model.createUser(user.email,user.password,object : RegistrationModel.CompleteCallback {
-            override fun onComplete(task: Task<AuthResult>) {
-                view.hideProgressBar()
-                view.showCardViewContainer()
+        model.createUser(user.email,user.password,object : RegistrationModel.CompleteCreateCallback {
+            override fun onComplete(task: Task<AuthResult>, id: String?) {
                 if(task.isSuccessful) {
-                    view.showToast(task.toString())
+                    id?.let{
+                        user.id = it
+                        saveUserData(user)
+                    }
                 } else {
                     Log.e(LOG_TAG, task.exception.toString())
-                    val errorString: String = when(task.exception){
+                     val errorString = when(task.exception){
                         is FirebaseAuthUserCollisionException ->
                             "Аккаунт с данным email уже зарегистрирован"
                         else ->
@@ -60,11 +70,28 @@ class RegistrationPresenter(_view: RegistrationView) {
                     }
                     view.showToast(errorString)
                 }
-
+                view.hideProgressBar()
+                view.showCardViewContainer()
             }
 
         })
+    }
 
+    private fun saveUserData(user: User) {
+        model.saveUserData(user, object  : RegistrationModel.CompleteAddCallback {
+            override fun onComplete(task: Task<Void>) {
+                if(task.isSuccessful){
+                    view.showToast(task.toString())
+                } else {
+                    Log.e(LOG_TAG, task.exception.toString())
+                    val errorString = when(task.exception){
+                        else ->
+                            "1Не удалось зарегистрировать аккаунт"
+                    }
+                    view.showToast(errorString)
+                }
+            }
+        })
     }
 
     private fun isEmailValid(email: String): Boolean =
