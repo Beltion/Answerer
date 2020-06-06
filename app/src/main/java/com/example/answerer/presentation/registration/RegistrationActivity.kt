@@ -43,7 +43,7 @@ class RegistrationActivity : AppCompatActivity(), RegistrationView {
         presenter = RegistrationPresenter(this)
 
         regBtn.setOnClickListener{
-            presenter.onRegBtnClick()
+            presenter.onRegBtnClick(applicationContext)
         }
 
         haveAccTv.setOnClickListener {

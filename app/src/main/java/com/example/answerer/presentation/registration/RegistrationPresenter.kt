@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.Log
 import com.example.answerer.R
 import com.example.answerer.data.User
+import com.example.answerer.presentation.container.ContainerActivity
 import com.example.answerer.presentation.login.LoginActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -18,7 +19,7 @@ class RegistrationPresenter(_view: RegistrationView) {
     private val view: RegistrationView = _view
     private val model = RegistrationModel()
 
-    fun onRegBtnClick() {
+    fun onRegBtnClick(context: Context) {
         val user = view.getRegUserData()
 
         if(user.name.isEmpty()) {
@@ -53,12 +54,12 @@ class RegistrationPresenter(_view: RegistrationView) {
         view.hideCardViewContainer()
 
         model.initFAuth()
+
         model.createUser(user.email,user.password,object : RegistrationModel.CompleteCreateCallback {
             override fun onComplete(task: Task<AuthResult>, id: String?) {
                 if(task.isSuccessful) {
                     id?.let{
-                        user.id = it
-                        saveUserData(user)
+                        saveUserData(user, it, context)
                     }
                 } else {
                     Log.e(LOG_TAG, task.exception.toString())
@@ -77,22 +78,42 @@ class RegistrationPresenter(_view: RegistrationView) {
         })
     }
 
-    private fun saveUserData(user: User) {
-        model.saveUserData(user, object  : RegistrationModel.CompleteAddCallback {
+
+    private fun saveUserData(user: User, id: String, context: Context) {
+        model.saveUserData(user, id, object  : RegistrationModel.CompleteAddCallback {
             override fun onComplete(task: Task<Void>) {
                 if(task.isSuccessful){
                     view.showToast(task.toString())
+                    onUserCreated(context)
                 } else {
                     Log.e(LOG_TAG, task.exception.toString())
                     val errorString = when(task.exception){
                         else ->
-                            "1Не удалось зарегистрировать аккаунт"
+                            "Не удалось сохранить данные на сервере, проверте соединение с интернет и" +
+                                    "повторите попытку"
                     }
                     view.showToast(errorString)
                 }
             }
         })
     }
+
+    private fun onUserCreated(context: Context) {
+        try {
+            model.initFAuth()
+            if(model.isLogged()){
+                toContainerActivity(context)
+            }
+        }catch (e: Exception){
+            Log.e(LOG_TAG, e.toString())
+        }
+    }
+
+    private fun toContainerActivity(context: Context){
+        val intent = Intent(context, ContainerActivity::class.java)
+        context.startActivity(intent)
+    }
+
 
     private fun isEmailValid(email: String): Boolean =
         android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()

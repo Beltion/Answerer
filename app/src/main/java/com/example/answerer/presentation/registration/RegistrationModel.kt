@@ -25,17 +25,23 @@ class RegistrationModel {
         database = Firebase.database.reference
     }
 
+    //  Создание данных для авторизации в приложении(встроенная аутентификация в Firebase через email)
     fun createUser(email:String, pass: String, createCallback: CompleteCreateCallback) {
         fAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener{
            createCallback.onComplete(it, fAuth.currentUser?.uid)
         }
     }
 
-    fun saveUserData(user:User, createCallback: CompleteAddCallback) {
-        database.child("users").child(user.id).setValue(user).addOnCompleteListener{
+    //  Сохранение данных в коллекцию users(необходимо для дальнейшей работы с профилем пользователя)
+    fun saveUserData(user:User, id: String, createCallback: CompleteAddCallback) {
+        database.child("users").child(id).setValue(user).addOnCompleteListener{
             createCallback.onComplete(it)
         }
     }
 
+    //  Проверка на создание текущего пользователя(вызывается после его регистрации)
+    fun isLogged() : Boolean {
+        return fAuth.currentUser != null
+    }
 }
 
