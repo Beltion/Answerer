@@ -18,4 +18,6 @@ interface RegistrationView {
 
     fun hideCardViewContainer()
     fun showCardViewContainer()
+
+    fun finishRegistrationActivity()
 }

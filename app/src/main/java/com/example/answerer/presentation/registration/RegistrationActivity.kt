@@ -90,5 +90,9 @@ class RegistrationActivity : AppCompatActivity(), RegistrationView {
     override fun hideCardViewContainer() {
         container.visibility = View.GONE
     }
+
+    override fun finishRegistrationActivity(){
+        finish()
+    }
 }
 

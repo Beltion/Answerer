@@ -18,5 +18,5 @@ interface LoginView {
     fun hideCardViewContainer()
     fun showCardViewContainer()
 
-
+    fun finishLoginActivity()
 }

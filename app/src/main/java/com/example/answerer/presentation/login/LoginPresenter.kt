@@ -87,6 +87,7 @@ class LoginPresenter(_view: LoginView) {
     private fun toContainerActivity(context: Context){
         val intent = Intent(context, ContainerActivity::class.java)
         context.startActivity(intent)
+        view.finishLoginActivity()
     }
 
     private fun isEmailValid(email: String): Boolean =

@@ -9,7 +9,7 @@
     <item
         android:id="@+id/bottom_nav_create"
         android:icon="@drawable/ic_create_black_24dp"
-        android:title="@string/create_solution"/>
+        android:title="@string/my_solution"/>
     <item
         android:id="@+id/bottom_nav_categories"
         android:icon="@drawable/ic_categories_black_24dp"

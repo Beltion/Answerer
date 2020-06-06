@@ -112,6 +112,7 @@ class RegistrationPresenter(_view: RegistrationView) {
     private fun toContainerActivity(context: Context){
         val intent = Intent(context, ContainerActivity::class.java)
         context.startActivity(intent)
+        view.finishRegistrationActivity()
     }
 
 

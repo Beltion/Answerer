@@ -88,4 +88,7 @@ class LoginActivity : AppCompatActivity(), LoginView{
         container.visibility = View.GONE
     }
 
+    override fun finishLoginActivity() {
+        finish()
+    }
 }

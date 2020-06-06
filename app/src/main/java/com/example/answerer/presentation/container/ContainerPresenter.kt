@@ -1,11 +1,14 @@
 package com.example.answerer.presentation.container
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.answerer.R
 import com.example.answerer.presentation.categories.CategoriesFrActivity
 import com.example.answerer.presentation.creater.CreaterFrActivity
+import com.example.answerer.presentation.login.LoginActivity
 import java.lang.Exception
 
 class ContainerPresenter(_view: ContainerView) {
@@ -14,7 +17,15 @@ class ContainerPresenter(_view: ContainerView) {
     private val view  = _view
     private  val model = ContainerModel()
 
-    fun onCreateView() {
+    fun onCreateView(context: Context) {
+        try {
+            model.initFAuth()
+            if(!model.isLogged()){
+                toLoginActivity(context)
+            }
+        }catch (e: Exception){
+            Log.e(LOG_TAG, e.toString())
+        }
         val fr = CategoriesFrActivity()
 
         view.setSelectedBottomNavItem(R.id.bottom_nav_categories)
@@ -23,6 +34,11 @@ class ContainerPresenter(_view: ContainerView) {
         view.changeFragment(fr)
         view.showContainer()
         view.hideProgressBar()
+    }
+
+    private fun toLoginActivity(context: Context) {
+        val intent = Intent(context, LoginActivity::class.java)
+        context.startActivity(intent)
     }
 
     fun onBottomItemClick(item: MenuItem){
@@ -88,7 +104,8 @@ class ContainerPresenter(_view: ContainerView) {
             e.printStackTrace()
         }
     }
-
+//      Надо так делать синхроноость шавигации, так ошибка
+//    хотя если делать тоже самое не в отдельной функции всё работает
 //    private fun synchronizedNavButton(fragment: Fragment) {
 //        when(fragment){
 //            is CategoriesFrActivity -> {

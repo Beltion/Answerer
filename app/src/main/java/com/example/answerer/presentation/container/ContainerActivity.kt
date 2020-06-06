@@ -59,7 +59,7 @@ class ContainerActivity : ContainerView, AppCompatActivity(){
         }
 
 
-        presenter.onCreateView()
+        presenter.onCreateView(applicationContext)
     }
 
     override fun setToolbarTitle(s: String) {
