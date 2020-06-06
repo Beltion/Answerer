@@ -45,7 +45,7 @@ class ContainerActivity : ContainerView, AppCompatActivity(){
         drawerNavView = findViewById(R.id.drawer_nav_view)
 
         presenter = ContainerPresenter(this)
-        toolbar.title = getString(R.string.categories)
+        setToolbarTitle(getString(R.string.categories))
 
 
         drawerNavView.setNavigationItemSelectedListener {
@@ -60,6 +60,10 @@ class ContainerActivity : ContainerView, AppCompatActivity(){
 
 
         presenter.onCreateView()
+    }
+
+    override fun setToolbarTitle(s: String) {
+        toolbar.title = s
     }
 
     override fun showToast(str: String) {
