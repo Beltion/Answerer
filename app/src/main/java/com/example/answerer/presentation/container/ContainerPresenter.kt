@@ -16,12 +16,14 @@ class ContainerPresenter(_view: ContainerView) {
     private val LOG_TAG = "Container"
     private val view  = _view
     private  val model = ContainerModel()
+    private lateinit var ctx: Context
 
     fun onCreateView(context: Context) {
+        ctx = context
         try {
             model.initFAuth()
             if(!model.isLogged()){
-                toLoginActivity(context)
+                toLoginActivity(ctx)
             }
         }catch (e: Exception){
             Log.e(LOG_TAG, e.toString())
@@ -39,6 +41,7 @@ class ContainerPresenter(_view: ContainerView) {
     private fun toLoginActivity(context: Context) {
         val intent = Intent(context, LoginActivity::class.java)
         context.startActivity(intent)
+        view.finishContainerActivity()
     }
 
     fun onBottomItemClick(item: MenuItem){
@@ -84,8 +87,14 @@ class ContainerPresenter(_view: ContainerView) {
                 Log.e(LOG_TAG, "Nav error")
             R.id.nav_settings ->
                 Log.e(LOG_TAG, "Nav settings")
-            R.id.nav_logout ->
-                Log.e(LOG_TAG, "Nav logout")
+            R.id.nav_logout ->{
+                Log.d(LOG_TAG, "Nav logout")
+                model.logUot()
+                toLoginActivity(ctx)
+
+            }
+
+
         }
 
         view.hideNavDrawer()
@@ -99,11 +108,11 @@ class ContainerPresenter(_view: ContainerView) {
                 view.changeFragment(it)
 //                synchronizedNavButton(it)
             }?: Log.e(LOG_TAG,"New Fragment is NULL and don't changed")
-
         }catch (e:Exception){
             e.printStackTrace()
         }
     }
+
 //      Надо так делать синхроноость шавигации, так ошибка
 //    хотя если делать тоже самое не в отдельной функции всё работает
 //    private fun synchronizedNavButton(fragment: Fragment) {

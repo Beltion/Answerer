@@ -96,5 +96,6 @@ class LoginPresenter(_view: LoginView) {
     fun onTextCreateAccClick(context: Context) {
         val intent = Intent(context, RegistrationActivity::class.java)
         context.startActivity(intent)
+        view.finishLoginActivity()
     }
 }

@@ -28,4 +28,6 @@ interface ContainerView {
     fun setSelectedDrawerNavItem(id: Int)
     fun setSelectedBottomNavItem(id: Int)
     fun setToolbarTitle(s: String)
+
+    fun finishContainerActivity()
 }

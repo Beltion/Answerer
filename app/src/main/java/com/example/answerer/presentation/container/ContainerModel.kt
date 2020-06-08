@@ -3,6 +3,7 @@ package com.example.answerer.presentation.container
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 
 class ContainerModel {
     private lateinit var fAuth: FirebaseAuth
@@ -20,6 +21,10 @@ class ContainerModel {
         fAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener{
             callback.onComplete(it)
         }
+    }
+
+    fun logUot(){
+        fAuth.signOut()
     }
 
     fun isLogged() : Boolean {

@@ -112,6 +112,10 @@ class ContainerActivity : ContainerView, AppCompatActivity(){
         bottomNavView.selectedItemId = id
     }
 
+    override fun finishContainerActivity() {
+        finish()
+    }
+
 
 
 }
