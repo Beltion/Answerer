@@ -22,7 +22,7 @@ class LoginPresenter(_view: LoginView) {
 
     fun onViewCreate(context: Context) {
         try {
-            model.initFAuth()
+            model.initModel()
             if(model.isLogged()){
                toContainerActivity(context)
             }

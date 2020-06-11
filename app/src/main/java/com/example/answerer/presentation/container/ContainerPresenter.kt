@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.answerer.R
-import com.example.answerer.presentation.categories.CategoriesFrActivity
+import com.example.answerer.presentation.categories.CategoriesFragment
 import com.example.answerer.presentation.creater.CreaterFrActivity
 import com.example.answerer.presentation.login.LoginActivity
 import java.lang.Exception
@@ -28,7 +28,7 @@ class ContainerPresenter(_view: ContainerView) {
         }catch (e: Exception){
             Log.e(LOG_TAG, e.toString())
         }
-        val fr = CategoriesFrActivity()
+        val fr = CategoriesFragment()
 
         view.setSelectedBottomNavItem(R.id.bottom_nav_categories)
         view.setSelectedDrawerNavItem(R.id.nav_categories)
@@ -56,7 +56,7 @@ class ContainerPresenter(_view: ContainerView) {
                 Log.d(LOG_TAG, "Categories Bottom")
                 view.setSelectedDrawerNavItem(R.id.nav_categories)
                 view.setSelectedDrawerNavItem(R.id.nav_categories)
-                fragment = CategoriesFrActivity()
+                fragment = CategoriesFragment()
             }
 
             R.id.bottom_nav_create ->{
@@ -76,7 +76,7 @@ class ContainerPresenter(_view: ContainerView) {
             R.id.nav_categories ->{
                 Log.d(LOG_TAG, "Categories Drawer")
                 view.setSelectedBottomNavItem(R.id.bottom_nav_categories)
-                fragment = CategoriesFrActivity()
+                fragment = CategoriesFragment()
             }
             R.id.nav_create ->{
                 Log.e(LOG_TAG, "Create Drawer")

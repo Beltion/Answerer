@@ -17,12 +17,6 @@ class ContainerModel {
         fAuth = FirebaseAuth.getInstance()
     }
 
-    fun authorization(email:String, pass: String,callback: CompleteCallback) {
-        fAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener{
-            callback.onComplete(it)
-        }
-    }
-
     fun logUot(){
         fAuth.signOut()
     }

@@ -20,7 +20,7 @@ class RegistrationModel {
         fun onComplete(task: Task<Void>)
     }
 
-    fun initFAuth(){
+    fun initModel(){
         fAuth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
     }

@@ -14,7 +14,7 @@ class LoginModel {
 
 
 
-    fun initFAuth(){
+    fun initModel(){
         fAuth = FirebaseAuth.getInstance()
     }
 

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.example.answerer.R
 
-class CategoriesFrActivity : Fragment(), CategoriseView {
+class CategoriesFragment : Fragment(), CategoriseView {
 
     lateinit var rootView: View
     lateinit var recyclerView: RecyclerView
@@ -37,7 +37,7 @@ class CategoriesFrActivity : Fragment(), CategoriseView {
 
         presenter = CategoriesPresenter(this)
 
-        presenter.test(recyclerView)
+        presenter.onCreateView(recyclerView)
 
     }
 

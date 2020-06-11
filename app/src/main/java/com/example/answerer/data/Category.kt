@@ -1,3 +1,7 @@
 package com.example.answerer.data
 
-data class Category(val name: String, val count: Int)
+data class Category (
+     var id: String? = "",
+     var name: String? = "",
+     var count: String? = ""
+)

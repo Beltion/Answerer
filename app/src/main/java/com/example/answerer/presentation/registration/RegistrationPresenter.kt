@@ -53,7 +53,7 @@ class RegistrationPresenter(_view: RegistrationView) {
         view.showProgressBar()
         view.hideCardViewContainer()
 
-        model.initFAuth()
+        model.initModel()
 
         model.createUser(user.email,user.password,object : RegistrationModel.CompleteCreateCallback {
             override fun onComplete(task: Task<AuthResult>, id: String?) {
@@ -100,7 +100,7 @@ class RegistrationPresenter(_view: RegistrationView) {
 
     private fun onUserCreated(context: Context) {
         try {
-            model.initFAuth()
+            model.initModel()
             if(model.isLogged()){
                 toContainerActivity(context)
             }
