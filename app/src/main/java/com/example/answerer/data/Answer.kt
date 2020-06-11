@@ -1,4 +1,7 @@
 package com.example.answerer.data
 
-class Answer {
-}
+data class Answer(
+    var id: Int? = null,
+    var content: String? = null,
+    var nextQuestionId: Int? = null
+)
