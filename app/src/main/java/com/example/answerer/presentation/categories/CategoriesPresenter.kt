@@ -13,21 +13,28 @@ class CategoriesPresenter(_view: CategoriseView) {
     lateinit var categories: ArrayList<Category>
 
 
-    fun onCreateView(rv: RecyclerView?) {
+    fun onCreateView(rv: RecyclerView?, clickListener: CategoriesRVAdapter.OnCategoriesClickListener) {
 
         model.initModel()
 
-        model.getCategories(object: CategoriesModel.CompleteCallback{
+        model.getCategories(object: CategoriesModel.CategoriesCompleteCallback{
             override fun onComplete(categories: ArrayList<Category>) {
-                val rvAdapter = CategoriesRVAdapter(categories)
+                val rvAdapter = CategoriesRVAdapter(categories, clickListener)
                 rv?.let {
                     it.adapter = rvAdapter
                 }
-
                 view.hideProgressBar()
                 view.showCardViewContainer()
             }
         })
 
-        }
+    }
+
+
+    fun onCategoryClick(category: Category) {
+        view.showToast("Идентификатор категории: ${category.id}")
+        model.getCategoriSolution()
+    }
+
+
 }

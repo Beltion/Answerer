@@ -1,5 +1,6 @@
 package com.example.answerer.presentation.categories
 
+import com.example.answerer.data.Category
 
 
 interface CategoriseView {
@@ -13,5 +14,4 @@ interface CategoriseView {
 
     fun hideCardViewContainer()
     fun showCardViewContainer()
-
 }

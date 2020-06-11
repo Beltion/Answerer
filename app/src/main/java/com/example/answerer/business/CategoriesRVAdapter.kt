@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.answerer.R
 import com.example.answerer.data.Category
 
-class CategoriesRVAdapter(val categories: ArrayList<Category>) : RecyclerView.Adapter<CategoriesRVAdapter.CategoriesViewHolder>() {
+class CategoriesRVAdapter(val categories: ArrayList<Category>,
+                          private val catClickListener: OnCategoriesClickListener) : RecyclerView.Adapter<CategoriesRVAdapter.CategoriesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.categories_card, parent,false)
@@ -21,12 +22,22 @@ class CategoriesRVAdapter(val categories: ArrayList<Category>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
         holder.name.text = categories[position].name
         holder.count.text = categories[position].count.toString()
+
+        holder.itemClick(categories[position], catClickListener)
+    }
+
+    interface OnCategoriesClickListener {
+        fun onItemClick(category: Category)
     }
 
     class CategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.findViewById<TextView>(R.id.name_cat_cv)
         val count = itemView.findViewById<TextView>(R.id.count_cat_cv)
 
-
+        fun itemClick(category: Category, clickListener: OnCategoriesClickListener){
+            itemView.setOnClickListener {
+                clickListener.onItemClick(category)
+            }
+        }
     }
 }

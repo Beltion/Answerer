@@ -1,19 +1,20 @@
 package com.example.answerer.presentation.categories
 
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.answerer.R
+import com.example.answerer.business.CategoriesRVAdapter
+import com.example.answerer.data.Category
 
-class CategoriesFragment : Fragment(), CategoriseView {
+class CategoriesFragment : Fragment(), CategoriesRVAdapter.OnCategoriesClickListener, CategoriseView {
 
     lateinit var rootView: View
     lateinit var recyclerView: RecyclerView
@@ -37,12 +38,12 @@ class CategoriesFragment : Fragment(), CategoriseView {
 
         presenter = CategoriesPresenter(this)
 
-        presenter.onCreateView(recyclerView)
+        presenter.onCreateView(recyclerView, this)
 
     }
 
-    override fun showToast(regStatus: String) {
-        TODO("Not yet implemented")
+    override fun showToast(s: String) {
+        Toast.makeText(rootView.context, s, Toast.LENGTH_SHORT).show()
     }
 
     override fun showProgressBar() {
@@ -59,6 +60,10 @@ class CategoriesFragment : Fragment(), CategoriseView {
 
     override fun showCardViewContainer() {
         recyclerView.visibility = View.VISIBLE
+    }
+
+    override fun onItemClick(category: Category) {
+        presenter.onCategoryClick(category)
     }
 
 

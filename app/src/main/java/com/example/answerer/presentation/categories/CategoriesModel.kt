@@ -17,9 +17,12 @@ class CategoriesModel {
     private lateinit var fAuth: FirebaseAuth
     private lateinit var db: DatabaseReference
 
-    interface CompleteCallback {
+    interface CategoriesCompleteCallback {
         fun onComplete(categories: ArrayList<Category>)
+    }
 
+    interface SolutionsCompleteCallback {
+        fun onComplete(categories: ArrayList<Category>)
     }
 
 
@@ -28,7 +31,7 @@ class CategoriesModel {
         db = Firebase.database.reference
     }
 
-    fun getCategories(callback: CompleteCallback) {
+    fun getCategories(callbackCategories: CategoriesCompleteCallback) {
 
         val ref = db.child("categories")
         val categories: ArrayList<Category> = ArrayList()
@@ -36,17 +39,18 @@ class CategoriesModel {
             override fun onDataChange(snapshot: DataSnapshot) {
                 categories.clear()
                 for (postSnapshot in snapshot.children) {
+                    val count = Integer.parseInt(postSnapshot.child("count").value.toString())
+                    if(count > 0){
+                        val cat = Category(
+                            postSnapshot.key,
+                            postSnapshot.child("title").value.toString(),
+                            count
+                        )
+                        categories.add(cat)
+                    }
 
-                    Log.d("CATMODEL","Key: " + postSnapshot.key)
-                    val cat = Category(
-                        postSnapshot.key,
-                        postSnapshot.child("title").value.toString(),
-                        postSnapshot.child("count").value.toString()
-
-                    )
-                    categories.add(cat)
                 }
-                callback.onComplete(categories)
+                callbackCategories.onComplete(categories)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -54,6 +58,10 @@ class CategoriesModel {
             }
         })
 
+    }
+
+    fun getCategoriSolution() {
+        TODO("Not yet implemented")
     }
 
 
