@@ -3,6 +3,7 @@ package com.example.answerer.presentation.categories
 import androidx.recyclerview.widget.RecyclerView
 import com.example.answerer.business.CategoriesRVAdapter
 import com.example.answerer.data.Category
+import com.example.answerer.data.Solution
 
 class CategoriesPresenter(_view: CategoriseView) {
 
@@ -33,7 +34,12 @@ class CategoriesPresenter(_view: CategoriseView) {
 
     fun onCategoryClick(category: Category) {
         view.showToast("Идентификатор категории: ${category.id}")
-        model.getCategoriSolution()
+        model.getCategorySolutions(category.id, object: CategoriesModel.SolutionsCompleteCallback{
+            override fun onComplete(solutions: ArrayList<Solution>) {
+
+            }
+
+        })
     }
 
 
