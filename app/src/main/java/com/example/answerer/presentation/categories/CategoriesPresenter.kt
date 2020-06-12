@@ -31,12 +31,11 @@ class CategoriesPresenter(_view: CategoriseView) {
 
     }
 
-
     fun onCategoryClick(category: Category) {
         view.showToast("Идентификатор категории: ${category.id}")
-        model.getCategorySolutions(category.id, object: CategoriesModel.SolutionsCompleteCallback{
-            override fun onComplete(solutions: ArrayList<Solution>) {
-
+        model.getSolutionInfo(category.id, object: CategoriesModel.SolutionsTitlesCompleteCallback{
+            override fun onComplete(solutions: ArrayList<String>) {
+                
             }
 
         })

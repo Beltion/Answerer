@@ -29,6 +29,10 @@ class CategoriesModel {
         fun onComplete(solutions: ArrayList<Solution>)
     }
 
+    interface SolutionsTitlesCompleteCallback {
+        fun onComplete(solutions: ArrayList<String>)
+    }
+
 
     fun initModel(){
         fAuth = FirebaseAuth.getInstance()
@@ -64,7 +68,28 @@ class CategoriesModel {
 
     }
 
-    fun getCategorySolutions(categoryId: String, callback: SolutionsCompleteCallback) {
+    fun getSolutionInfo(categoryId: String, callback: SolutionsTitlesCompleteCallback){
+        val ref = db.child("content").child(categoryId.toString()).child("solutions").child("title")
+        val titles: ArrayList<String> = ArrayList()
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                titles.clear()
+
+                for (item in snapshot.children){
+                    Log.d("CATMODEL","Sol title: " + item)
+                    titles.add(item.toString())
+                }
+
+                callback.onComplete(titles)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.d("CATMODEL","The read failed: " + databaseError.message)
+            }
+        })
+    }
+
+    fun getSolutions(categoryId: String, callback: SolutionsCompleteCallback) {
         val ref = db.child("content").child(categoryId.toString()).child("solutions")
         val solutions: ArrayList<Solution> = ArrayList()
         ref.addValueEventListener(object : ValueEventListener {
