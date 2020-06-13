@@ -1,9 +1,11 @@
 package com.example.answerer.presentation.categories
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.example.answerer.business.CategoriesRVAdapter
 import com.example.answerer.business.TitleRVAdapter
 import com.example.answerer.data.Category
+import com.example.answerer.data.Solution
 import com.example.answerer.data.SolutionTitle
 
 class CategoriesPresenter(_view: CategoriseView) {
@@ -57,8 +59,18 @@ class CategoriesPresenter(_view: CategoriseView) {
         })
     }
 
-    fun onSolutionClick(solutionId: String) {
+    fun onSolutionClick(
+        solutionId: String
+    ) {
         view.showToast("Идентификатор решения; $solutionId")
+        model. getSolutions(solutionId, object : CategoriesModel.SolutionsCompleteCallback {
+            override fun onComplete(solutions: ArrayList<Solution>) {
+                val id = Integer.parseInt(solutionId)
+                val solution: Solution = solutions[id]
+                Log.d(LOG_TAG, "Open solution: $solution")
+            }
+
+        })
     }
 
 

@@ -101,28 +101,17 @@ class CategoriesModel {
                 for (postSnapshot in snapshot.children) {
 
                     val questions = getSolutionQuestions(postSnapshot.child("questions"))
-//                    val answers = getSolutionAnswers(postSnapshot.child("answers"))
-//                    val results = getSolutionResults(postSnapshot.child("results"))
-//                    val solution = Solution(
-//                        postSnapshot.key,
-//                        postSnapshot.child("title").value.toString(),
-//                        postSnapshot.child("title").value.toString(),
-//                        questions,
-//                        answers,
-//                        results
-//                    )
-//
-//
-//                    val count = Integer.parseInt(postSnapshot.child("count").value.toString())
-//                    if(count > 0){
-//                        val cat = Category(
-//                            postSnapshot.key,
-//                            postSnapshot.child("title").value.toString(),
-//                            count
-//                        )
-//                        solutions.add(cat)
-//                    }
-
+                    val answers = getSolutionAnswers(postSnapshot.child("answers"))
+                    val results = getSolutionResults(postSnapshot.child("results"))
+                    val solution = Solution(
+                        postSnapshot.key,
+                        postSnapshot.child("title").value.toString(),
+                        postSnapshot.child("avtor").value.toString(),
+                        questions,
+                        answers,
+                        results
+                    )
+                solutions.add(solution)
                 }
                 callback.onComplete(solutions)
             }
@@ -153,13 +142,32 @@ class CategoriesModel {
         return questions
     }
 
-//    private fun getSolutionAnswers(answersSnapshot: DataSnapshot): ArrayList<Answer> {
-//
-//    }
-//
-//    private fun getSolutionResults(resultsSnapshot: DataSnapshot): ArrayList<Result> {
-//
-//    }
+    private fun getSolutionAnswers(answersSnapshot: DataSnapshot): ArrayList<Answer> {
+        val answers = ArrayList<Answer>()
+        for (item in answersSnapshot.children){
+
+            val answer = Answer(
+                item.key.toString(),
+                item.child("content").value.toString(),
+                Integer.parseInt( item.child("next_question_id").value.toString())
+            )
+            answers.add(answer)
+        }
+        return answers
+    }
+
+    private fun getSolutionResults(resultsSnapshot: DataSnapshot): ArrayList<Result> {
+        val results = ArrayList<Result>()
+        for (item in resultsSnapshot.children){
+
+            val result = Result(
+                Integer.parseInt(item.key.toString()),
+                item.child("content").value.toString()
+            )
+            results.add(result)
+        }
+        return results
+    }
 
 
 }
