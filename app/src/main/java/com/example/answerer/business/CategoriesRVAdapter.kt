@@ -9,11 +9,14 @@ import com.example.answerer.R
 import com.example.answerer.data.Category
 
 class CategoriesRVAdapter(val categories: ArrayList<Category>,
-                          private val catClickListener: OnCategoriesClickListener) : RecyclerView.Adapter<CategoriesRVAdapter.CategoriesViewHolder>() {
+                          private val catClickListener: OnCategoriesClickListener
+) : RecyclerView.Adapter<CategoriesRVAdapter.CategoriesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.categories_card, parent,false)
-        return CategoriesViewHolder(v)
+        return CategoriesViewHolder(
+            v
+        )
     }
 
     override fun getItemCount() = categories.size
@@ -27,7 +30,7 @@ class CategoriesRVAdapter(val categories: ArrayList<Category>,
     }
 
     interface OnCategoriesClickListener {
-        fun onItemClick(category: Category)
+        fun onCatItemClick(category: Category)
     }
 
     class CategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -36,7 +39,7 @@ class CategoriesRVAdapter(val categories: ArrayList<Category>,
 
         fun itemClick(category: Category, clickListener: OnCategoriesClickListener){
             itemView.setOnClickListener {
-                clickListener.onItemClick(category)
+                clickListener.onCatItemClick(category)
             }
         }
     }

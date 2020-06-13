@@ -12,9 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.example.answerer.R
 import com.example.answerer.business.CategoriesRVAdapter
+import com.example.answerer.business.TitleRVAdapter
 import com.example.answerer.data.Category
+import com.example.answerer.data.SolutionTitle
 
-class CategoriesFragment : Fragment(), CategoriesRVAdapter.OnCategoriesClickListener, CategoriseView {
+class CategoriesFragment : Fragment(),
+    CategoriesRVAdapter.OnCategoriesClickListener,
+    TitleRVAdapter.OnTitleClickListener,
+    CategoriseView {
 
     lateinit var rootView: View
     lateinit var recyclerView: RecyclerView
@@ -62,8 +67,12 @@ class CategoriesFragment : Fragment(), CategoriesRVAdapter.OnCategoriesClickList
         recyclerView.visibility = View.VISIBLE
     }
 
-    override fun onItemClick(category: Category) {
-        presenter.onCategoryClick(category)
+    override fun onCatItemClick(category: Category) {
+        presenter.onCategoryClick(category.id, recyclerView, this)
+    }
+
+    override fun onTitleItemClick(solutionTitle: SolutionTitle) {
+        presenter.onSolutionClick(solutionTitle.id)
     }
 
 

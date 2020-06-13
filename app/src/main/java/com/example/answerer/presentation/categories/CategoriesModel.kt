@@ -1,11 +1,7 @@
 package com.example.answerer.presentation.categories
 
 import android.util.Log
-import com.example.answerer.data.Answer
-import com.example.answerer.data.Category
-import com.example.answerer.data.Question
-import com.example.answerer.data.Result
-import com.example.answerer.data.Solution
+import com.example.answerer.data.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -30,7 +26,7 @@ class CategoriesModel {
     }
 
     interface SolutionsTitlesCompleteCallback {
-        fun onComplete(solutions: ArrayList<String>)
+        fun onComplete(titles: ArrayList<SolutionTitle>)
     }
 
 
@@ -69,15 +65,22 @@ class CategoriesModel {
     }
 
     fun getSolutionInfo(categoryId: String, callback: SolutionsTitlesCompleteCallback){
-        val ref = db.child("content").child(categoryId.toString()).child("solutions").child("title")
-        val titles: ArrayList<String> = ArrayList()
+        val ref = db.child("content").child(categoryId).child("solutions")
+        val titles: ArrayList<SolutionTitle> = ArrayList()
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 titles.clear()
-
+                Log.d("CATMODEL","Sol title: " + snapshot)
                 for (item in snapshot.children){
-                    Log.d("CATMODEL","Sol title: " + item)
-                    titles.add(item.toString())
+                    Log.d("CATMODEL","Sol title: " + item.child("title").value)
+                    Log.d("CATMODEL","Sol title id: " + item.key)
+                    val title = SolutionTitle(
+                        item.key.toString(),
+                        item.child("title").value.toString()
+
+                    )
+
+                    titles.add(title)
                 }
 
                 callback.onComplete(titles)
