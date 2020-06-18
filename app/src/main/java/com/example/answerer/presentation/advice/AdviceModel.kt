@@ -54,7 +54,7 @@ class AdviceModel {
 
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.d("CATMODEL","The read failed: " + databaseError.message)
+                Log.d("Advice","The read failed: " + databaseError.message)
             }
         })
     }
@@ -95,12 +95,14 @@ class AdviceModel {
 
     private fun getSolutionResults(resultsSnapshot: DataSnapshot): ArrayList<Result> {
         val results = ArrayList<Result>()
+        Log.d("Advice","Results")
         for (item in resultsSnapshot.children){
 
             val result = Result(
                 Integer.parseInt(item.key.toString()),
-                item.child("content").value.toString()
+                item.value.toString()
             )
+            Log.d("Advice","Result: $result")
             results.add(result)
         }
         return results
