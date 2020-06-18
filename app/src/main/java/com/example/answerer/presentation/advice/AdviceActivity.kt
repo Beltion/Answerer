@@ -41,7 +41,7 @@ class AdviceActivity : AppCompatActivity(),AnswersRVAdapter.OnAnswerClickListene
         cvContainer = findViewById(R.id.cvAdviceContainer)
 
         presenter = AdvicePresenter(this)
-        presenter.onViewCreate(rv,questionText, this)
+        presenter.onViewCreate(intent,rv,questionText, this)
     }
 
     override fun showToast(s: String) {

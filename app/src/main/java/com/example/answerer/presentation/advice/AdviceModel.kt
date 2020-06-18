@@ -1,5 +1,6 @@
 package com.example.answerer.presentation.advice
 
+import android.content.Intent
 import android.util.Log
 import com.example.answerer.data.Answer
 import com.example.answerer.data.Question
@@ -27,7 +28,12 @@ class AdviceModel {
         fun onComplete()
     }
 
-    fun getSolutions(categoryId: String,solutionId: String, callback: SolutionCompleteCallback) {
+    fun getSolutions(
+        intent: Intent,
+        callback: SolutionCompleteCallback
+    ) {
+        val categoryId: String = intent.getStringExtra("cat_id")
+        val solutionId: String = intent.getStringExtra("sol_id")
         val ref = db.child("content").child(categoryId).child("solutions").child(solutionId)
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

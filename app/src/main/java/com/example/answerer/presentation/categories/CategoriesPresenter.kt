@@ -41,12 +41,11 @@ class CategoriesPresenter(_view: CategoriseView) {
 
     }
 
-    fun onCategoryClick(category: String, rv: RecyclerView, clickListener: TitleRVAdapter.OnTitleClickListener) {
+    fun onCategoryClick(categoryId: String, rv: RecyclerView, clickListener: TitleRVAdapter.OnTitleClickListener) {
         view.showProgressBar()
         view.hideCardViewContainer()
 
-        view.showToast("Идентификатор категории: $category")
-        model.getSolutionInfo(category, object: CategoriesModel.SolutionsTitlesCompleteCallback{
+        model.getSolutionInfo(categoryId, object: CategoriesModel.SolutionsTitlesCompleteCallback{
             override fun onComplete(titles: ArrayList<SolutionTitle>) {
                 val rvAdapter =
                     TitleRVAdapter(
@@ -66,22 +65,22 @@ class CategoriesPresenter(_view: CategoriseView) {
         solutionId: String,
         context: Context
     ) {
-        view.showToast("Идентификатор решения; $solutionId")
         model. getSolutions(solutionId, object : CategoriesModel.SolutionsCompleteCallback {
             override fun onComplete(solutions: ArrayList<Solution>) {
                 val id = Integer.parseInt(solutionId)
                 val solution: Solution = solutions[id]
                 Log.d(LOG_TAG, "Open solution: $solution")
-                toAdviceActivity(context)
+                toAdviceActivity(context, model.catId, solutionId)
             }
 
         })
     }
 
-    private fun toAdviceActivity(context: Context){
+    private fun toAdviceActivity(context: Context, catId: String, solId: String){
         val intent = Intent(context, AdviceActivity::class.java)
+        intent.putExtra("cat_id", catId)
+        intent.putExtra("sol_id", solId)
         context.startActivity(intent)
-
     }
 
 

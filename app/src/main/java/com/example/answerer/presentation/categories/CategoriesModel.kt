@@ -16,6 +16,7 @@ class CategoriesModel {
 
     private lateinit var fAuth: FirebaseAuth
     private lateinit var db: DatabaseReference
+    lateinit var catId: String
 
     interface CategoriesCompleteCallback {
         fun onComplete(categories: ArrayList<Category>)
@@ -65,6 +66,7 @@ class CategoriesModel {
     }
 
     fun getSolutionInfo(categoryId: String, callback: SolutionsTitlesCompleteCallback){
+        catId = categoryId
         val ref = db.child("content").child(categoryId).child("solutions")
         val titles: ArrayList<SolutionTitle> = ArrayList()
         ref.addValueEventListener(object : ValueEventListener {
@@ -93,7 +95,7 @@ class CategoriesModel {
     }
 
     fun getSolutions(categoryId: String, callback: SolutionsCompleteCallback) {
-        val ref = db.child("content").child(categoryId.toString()).child("solutions")
+        val ref = db.child("content").child(categoryId).child("solutions")
         val solutions: ArrayList<Solution> = ArrayList()
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

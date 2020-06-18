@@ -1,11 +1,11 @@
 package com.example.answerer.presentation.advice
 
+import android.content.Intent
 import android.util.Log
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.answerer.business.AnswersRVAdapter
 import com.example.answerer.data.Answer
-import com.example.answerer.data.Solution
 
 class AdvicePresenter(_view: AdviceVew) {
 
@@ -13,13 +13,16 @@ class AdvicePresenter(_view: AdviceVew) {
     private val view = _view
     private val model = AdviceModel()
 
-    fun onViewCreate(rv: RecyclerView,
-                     questionText: TextView,
-                     clickListener: AnswersRVAdapter.OnAnswerClickListener){
+    fun onViewCreate(
+        intent: Intent,
+        rv: RecyclerView,
+        questionText: TextView,
+        clickListener: AnswersRVAdapter.OnAnswerClickListener
+    ){
 
         model.initModel()
 
-        model.getSolutions("0","0", object : AdviceModel.SolutionCompleteCallback{
+        model.getSolutions(intent,object : AdviceModel.SolutionCompleteCallback{
             override fun onComplete() {
 
                 val answers = ArrayList<Answer>()
@@ -50,8 +53,8 @@ class AdvicePresenter(_view: AdviceVew) {
         questionText: TextView,
         clickListener: AnswersRVAdapter.OnAnswerClickListener
     ) {
-//        view.showProgressBar()
-//        view.hideCardViewContainer()
+        view.showProgressBar()
+        view.hideCardViewContainer()
             answer.nextQuestionId?.let {
                 if(it > 0){
 
@@ -70,5 +73,7 @@ class AdvicePresenter(_view: AdviceVew) {
                     rv.swapAdapter(rvAdapter,false)
                 }
             }
+        view.hideProgressBar()
+        view.showCardViewContainer()
     }
 }
