@@ -44,7 +44,6 @@ class CategoriesFragment : Fragment(),
         presenter = CategoriesPresenter(this)
 
         presenter.onCreateView(recyclerView, this)
-
     }
 
     override fun showToast(s: String) {
@@ -72,7 +71,7 @@ class CategoriesFragment : Fragment(),
     }
 
     override fun onTitleItemClick(solutionTitle: SolutionTitle) {
-        presenter.onSolutionClick(solutionTitle.id)
+        this.context?.let { presenter.onSolutionClick(solutionTitle.id, it) }
     }
 
 

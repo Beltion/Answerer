@@ -33,13 +33,14 @@ class LoginActivity : AppCompatActivity(), LoginView{
     }
 
     override fun init() {
+        progressBar = findViewById(R.id.progressAuth)
+
         presenter = LoginPresenter(this)
         presenter.onViewCreate(applicationContext)
 
         emailEt = findViewById(R.id.emailEtAuth)
         passEt = findViewById(R.id.passEtAuth)
         authBtn = findViewById(R.id.authBtnAuth)
-        progressBar = findViewById(R.id.progressAuth)
         noAccTv = findViewById(R.id.authTextReg)
         container = findViewById(R.id.cvAuth)
 

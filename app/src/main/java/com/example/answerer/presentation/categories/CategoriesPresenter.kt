@@ -1,5 +1,7 @@
 package com.example.answerer.presentation.categories
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.example.answerer.business.CategoriesRVAdapter
@@ -7,6 +9,7 @@ import com.example.answerer.business.TitleRVAdapter
 import com.example.answerer.data.Category
 import com.example.answerer.data.Solution
 import com.example.answerer.data.SolutionTitle
+import com.example.answerer.presentation.advice.AdviceActivity
 
 class CategoriesPresenter(_view: CategoriseView) {
 
@@ -60,7 +63,8 @@ class CategoriesPresenter(_view: CategoriseView) {
     }
 
     fun onSolutionClick(
-        solutionId: String
+        solutionId: String,
+        context: Context
     ) {
         view.showToast("Идентификатор решения; $solutionId")
         model. getSolutions(solutionId, object : CategoriesModel.SolutionsCompleteCallback {
@@ -68,9 +72,16 @@ class CategoriesPresenter(_view: CategoriseView) {
                 val id = Integer.parseInt(solutionId)
                 val solution: Solution = solutions[id]
                 Log.d(LOG_TAG, "Open solution: $solution")
+                toAdviceActivity(context)
             }
 
         })
+    }
+
+    private fun toAdviceActivity(context: Context){
+        val intent = Intent(context, AdviceActivity::class.java)
+        context.startActivity(intent)
+
     }
 
 
