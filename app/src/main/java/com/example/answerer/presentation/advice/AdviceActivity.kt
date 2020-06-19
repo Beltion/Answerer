@@ -34,6 +34,7 @@ class AdviceActivity : AppCompatActivity(),AnswersRVAdapter.OnAnswerClickListene
 
     override fun init() {
         toolbar = findViewById(R.id.toolbarAdvice)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
         progressBar = findViewById(R.id.progressAdvice)
         questionText = findViewById(R.id.tvQuestion)
         rv = findViewById(R.id.rvAnswers)
@@ -42,6 +43,11 @@ class AdviceActivity : AppCompatActivity(),AnswersRVAdapter.OnAnswerClickListene
 
         presenter = AdvicePresenter(this)
         presenter.onViewCreate(intent,rv,questionText, this)
+
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
+
     }
 
     override fun showToast(s: String) {
