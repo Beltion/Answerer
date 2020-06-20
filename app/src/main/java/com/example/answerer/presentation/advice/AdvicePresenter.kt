@@ -5,9 +5,8 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.answerer.business.AnswersRVAdapter
+import com.example.answerer.business.adapters.AnswersRVAdapter
 import com.example.answerer.data.Answer
-import kotlin.math.absoluteValue
 
 class AdvicePresenter(_view: AdviceVew) {
 

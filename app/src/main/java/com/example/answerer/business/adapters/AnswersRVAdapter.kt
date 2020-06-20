@@ -1,4 +1,4 @@
-package com.example.answerer.business
+package com.example.answerer.business.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +15,9 @@ class AnswersRVAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnswerViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.advice_card, parent, false)
-        return  AnswerViewHolder(v)
+        return AnswerViewHolder(
+            v
+        )
     }
 
     override fun getItemCount() = answers.size

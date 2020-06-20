@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
-import com.example.answerer.business.CategoriesRVAdapter
-import com.example.answerer.business.TitleRVAdapter
+import com.example.answerer.business.adapters.CategoriesRVAdapter
+import com.example.answerer.business.adapters.TitleRVAdapter
 import com.example.answerer.data.Category
 import com.example.answerer.data.Solution
 import com.example.answerer.data.SolutionTitle

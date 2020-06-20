@@ -10,11 +10,12 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.answerer.R
-import com.example.answerer.business.AnswersRVAdapter
+import com.example.answerer.business.adapters.AnswersRVAdapter
 import com.example.answerer.data.Answer
 import com.google.android.material.appbar.MaterialToolbar
 
-class AdviceActivity : AppCompatActivity(),AnswersRVAdapter.OnAnswerClickListener,  AdviceVew {
+class AdviceActivity : AppCompatActivity(),
+    AnswersRVAdapter.OnAnswerClickListener,  AdviceVew {
 
     private lateinit var rv: RecyclerView
     private lateinit var cvContainer: CardView

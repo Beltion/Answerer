@@ -1,4 +1,4 @@
-package com.example.answerer.business
+package com.example.answerer.business.adapters
 
 import android.view.LayoutInflater
 import android.view.View

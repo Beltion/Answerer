@@ -7,7 +7,7 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.answerer.R
 import com.example.answerer.presentation.categories.CategoriesFragment
-import com.example.answerer.presentation.creater.CreaterFrActivity
+import com.example.answerer.presentation.usersolution.UserSolutionFragment
 import com.example.answerer.presentation.login.LoginActivity
 import java.lang.Exception
 
@@ -62,7 +62,7 @@ class ContainerPresenter(_view: ContainerView) {
             R.id.bottom_nav_create ->{
                 Log.d(LOG_TAG, "Create Bottom")
                 view.setSelectedDrawerNavItem(R.id.nav_create)
-                fragment = CreaterFrActivity()
+                fragment = UserSolutionFragment()
             }
 
         }
@@ -81,7 +81,7 @@ class ContainerPresenter(_view: ContainerView) {
             R.id.nav_create ->{
                 Log.e(LOG_TAG, "Create Drawer")
                 view.setSelectedBottomNavItem(R.id.bottom_nav_create)
-                fragment = CreaterFrActivity()
+                fragment = UserSolutionFragment()
             }
             R.id.nav_error ->
                 Log.e(LOG_TAG, "Nav error")
