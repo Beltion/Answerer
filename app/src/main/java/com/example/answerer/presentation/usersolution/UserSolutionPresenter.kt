@@ -1,9 +1,12 @@
 package com.example.answerer.presentation.usersolution
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.example.answerer.business.adapters.UserSolutionsRVAdapter
 import com.example.answerer.data.UserSolutionTitle
+import com.example.answerer.presentation.constructor.ConstructorActivity
 
 class UserSolutionPresenter(_view: UserSolutionView) {
 
@@ -30,7 +33,15 @@ class UserSolutionPresenter(_view: UserSolutionView) {
         })
     }
 
-    fun onUserTitleItemClick(solutionTitle: UserSolutionTitle) {
+    fun onUserTitleItemClick(context: Context, solutionTitle: UserSolutionTitle) {
         Log.d(LOG_TAG, "User solution id cat/sol:${solutionTitle.catId}/${solutionTitle.solId}")
+        toConstructorActivity(context, solutionTitle.catId,  solutionTitle.solId)
+    }
+
+    private fun toConstructorActivity(context: Context, catId: String, solId: String){
+        val intent = Intent(context, ConstructorActivity::class.java)
+        intent.putExtra("cat_id", catId)
+        intent.putExtra("sol_id", solId)
+        context.startActivity(intent)
     }
 }

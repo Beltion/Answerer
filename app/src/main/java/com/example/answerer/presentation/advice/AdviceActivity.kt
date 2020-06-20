@@ -28,7 +28,7 @@ class AdviceActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.advice)
+        setContentView(R.layout.advice_activity)
 
         init()
     }

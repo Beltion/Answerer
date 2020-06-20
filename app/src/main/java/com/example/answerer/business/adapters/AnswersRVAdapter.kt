@@ -1,5 +1,6 @@
 package com.example.answerer.business.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ class AnswersRVAdapter(
     override fun getItemCount() = answers.size
 
     override fun onBindViewHolder(holder: AnswerViewHolder, position: Int) {
+        Log.d("RVAdapter", "Answer ${answers.count()} : ${answers}")
         holder.answer.text = answers[position].content
         holder.itemClick(answers[position], answerClickListener)
     }

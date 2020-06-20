@@ -62,7 +62,7 @@ class UserSolutionFragment : Fragment(), UserSolutionView, UserSolutionsRVAdapte
     }
 
     override fun onTitleItemClick(solutionTitle: UserSolutionTitle) {
-        presenter.onUserTitleItemClick(solutionTitle)
+        context?.let { presenter.onUserTitleItemClick(it, solutionTitle) }
     }
 
 }
