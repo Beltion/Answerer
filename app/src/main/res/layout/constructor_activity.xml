@@ -11,16 +11,17 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <ScrollView
+        android:id="@+id/scrollRVQ"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbarConstructor"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbarConstructor">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvConstructorParent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingBottom="?attr/actionBarSize"/>
     </ScrollView>
 
 

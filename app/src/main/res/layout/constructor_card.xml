@@ -25,12 +25,18 @@
                 android:padding="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
-
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/questionConstructor">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvConstructorChild"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/questionConstructor"/>
+                android:paddingBottom="30dp"
+                />
+        </ScrollView>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

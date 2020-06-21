@@ -24,7 +24,7 @@ class AnswersRVAdapter(
     override fun getItemCount() = answers.size
 
     override fun onBindViewHolder(holder: AnswerViewHolder, position: Int) {
-        Log.d("RVAdapter", "Answer ${answers.count()} : ${answers}")
+        Log.d("RVAdapter", "Answer: ${answers[position].content}")
         holder.answer.text = answers[position].content
         holder.itemClick(answers[position], answerClickListener)
     }
@@ -35,7 +35,6 @@ class AnswersRVAdapter(
 
     class AnswerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val answer = itemView.findViewById<TextView>(R.id.name_answer_cv)
-
         fun itemClick(answer: Answer, clickListener: OnAnswerClickListener){
              itemView.setOnClickListener {
                  clickListener.onAdviseAnswerClick(answer)

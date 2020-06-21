@@ -4,7 +4,9 @@ import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.example.answerer.business.adapters.AnswersRVAdapter
+import com.example.answerer.business.adapters.ConstructorChildRVAdapter
 import com.example.answerer.business.adapters.ConstructorParentRVAdapter
+import com.example.answerer.business.adapters.ResultRVAdapter
 import com.example.answerer.data.Answer
 import com.example.answerer.data.ConstructorQuestion
 
@@ -15,24 +17,25 @@ class ConstructorPresenter(_view : ConstructorView) {
     private val model = ConstructorModel()
 
     fun onCreateView(intent: Intent,
-                     rv: RecyclerView,
-    questionClickListener: ConstructorParentRVAdapter.OnQuestionClickListener,
-    answerClickListener: AnswersRVAdapter.OnAnswerClickListener) {
+                     rvQuestion: RecyclerView,
+                     questionClickListener: ConstructorParentRVAdapter.OnQuestionClickListener,
+                     answerClickListener: ConstructorChildRVAdapter.OnAnswerClickListener) {
 
         model.initModel()
 
         model.getSolutions(intent, object : ConstructorModel.SolutionCompleteCallback{
             override fun onComplete() {
-                Log.d(LOG_TAG, "Solution:${model.solution}")
+
                 view.setToolbarTitle(model.solution.title)
 
-                val adapter = ConstructorParentRVAdapter(
+                val adapterQ = ConstructorParentRVAdapter(
                     solutionToConstructorQuestion(),
                     questionClickListener,
                     answerClickListener
                 )
 
-                rv.adapter = adapter
+                rvQuestion.adapter = adapterQ
+
             }
 
         })
@@ -42,10 +45,12 @@ class ConstructorPresenter(_view : ConstructorView) {
         val questions = ArrayList<ConstructorQuestion>()
 
         model.solution.questions.forEach {
+
             val answers = ArrayList<Answer>()
             it.count.forEach { item ->
                 answers.add(model.solution.answers[Integer.parseInt(item)])
             }
+
             it.id?.let{id->
                 val question = ConstructorQuestion(
                     id,
@@ -62,4 +67,11 @@ class ConstructorPresenter(_view : ConstructorView) {
 
     }
 
+    fun onAnswerClick(rvQuestion: RecyclerView, nextQuestionId: Int?) {
+
+
+
+    }
+
 }
+

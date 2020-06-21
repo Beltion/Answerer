@@ -8,20 +8,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.answerer.R
 import com.example.answerer.business.adapters.AnswersRVAdapter
+import com.example.answerer.business.adapters.ConstructorChildRVAdapter
 import com.example.answerer.business.adapters.ConstructorParentRVAdapter
+import com.example.answerer.business.adapters.ResultRVAdapter
 import com.example.answerer.data.Answer
 import com.example.answerer.data.ConstructorQuestion
+import com.example.answerer.data.Result
 import com.google.android.material.appbar.MaterialToolbar
-import kotlinx.android.synthetic.main.constructor_activity.view.*
 
 class ConstructorActivity :AppCompatActivity(),
-    AnswersRVAdapter.OnAnswerClickListener,
-    ConstructorParentRVAdapter.OnQuestionClickListener, ConstructorView {
+    ConstructorChildRVAdapter.OnAnswerClickListener,
+    ConstructorParentRVAdapter.OnQuestionClickListener,
+    ConstructorView {
 
     private lateinit var toolbar : MaterialToolbar
     private lateinit var progressBar: ProgressBar
-    private lateinit var rvParent : RecyclerView
-    private lateinit var rvChild : RecyclerView
+    private lateinit var rvQuestion : RecyclerView
     private lateinit var presenter: ConstructorPresenter
 
 
@@ -35,11 +37,17 @@ class ConstructorActivity :AppCompatActivity(),
         toolbar = findViewById(R.id.toolbarConstructor)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
         progressBar = findViewById(R.id.progressConstructor)
-        rvParent = findViewById(R.id.rvConstructorParent)
-        rvParent.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, true)
 
+        rvQuestion = findViewById(R.id.rvConstructorParent)
+        rvQuestion.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, true)
+
+        rvQuestion.isNestedScrollingEnabled = false
         presenter = ConstructorPresenter(this)
-        presenter.onCreateView(intent,rvParent, this, this)
+        presenter.onCreateView(intent,
+            rvQuestion,
+            this,
+            this
+        )
 
         toolbar.setNavigationOnClickListener {
             finish()
@@ -71,11 +79,14 @@ class ConstructorActivity :AppCompatActivity(),
     }
 
     override fun onAdviseAnswerClick(answer: Answer) {
-        TODO("Not yet implemented")
+        showToast(answer.content)
+        presenter.onAnswerClick(rvQuestion,answer.nextQuestionId)
     }
 
     override fun onConstructorQuestionClick(question: ConstructorQuestion) {
-        TODO("Not yet implemented")
+        showToast(question.question)
     }
+
+
 
 }
